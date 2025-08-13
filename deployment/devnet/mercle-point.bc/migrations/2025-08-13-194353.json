@@ -1,0 +1,12 @@
+{
+  "cell_recipes": [
+    {
+      "name": "mercle-point.bc",
+      "tx_hash": "0xc836e4fe8a63d5b2469e686bc555fa3d532608df1f7f07b1b141d8fa0ae1774d",
+      "index": 0,
+      "occupied_capacity": 2911000000000,
+      "data_hash": "0x5ad46185348448b4b10177c86a686fc04e37ab4a27d8f12c2741a505aa645fc3"
+    }
+  ],
+  "dep_group_recipes": []
+}

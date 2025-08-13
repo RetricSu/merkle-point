@@ -1,5 +1,5 @@
 import { ccc, CellDepInfoLike, KnownScript, Script } from "@ckb-ccc/core";
-import systemScripts from "../deployment/system-scripts.json";
+import systemScripts from "../../deployment/system-scripts.json";
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
 

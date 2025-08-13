@@ -1,5 +1,21 @@
 {
-  "devnet": {},
+  "devnet": {
+    "mercle-point.bc": {
+      "codeHash": "0x8b87938bdcdfa84dbf585d8f1da415d258df7dd97debb6e71013768278574663",
+      "hashType": "data1",
+      "cellDeps": [
+        {
+          "cellDep": {
+            "outPoint": {
+              "txHash": "0x7b2e2f7aeae65b29b94e9fa909f9c2cb94e91f878bc926fac78426702aa4463b",
+              "index": 0
+            },
+            "depType": "code"
+          }
+        }
+      ]
+    }
+  },
   "testnet": {},
   "mainnet": {}
 }

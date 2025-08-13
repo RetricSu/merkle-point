@@ -45,11 +45,13 @@ mercle-point/
 ### Building Contracts
 
 Build all contracts:
+
 ```bash
 pnpm run build
 ```
 
 Build a specific contract:
+
 ```bash
 pnpm run build:contract hello-world
 ```
@@ -57,11 +59,13 @@ pnpm run build:contract hello-world
 ### Running Tests
 
 Run all tests:
+
 ```bash
 pnpm test
 ```
 
 Run tests for a specific contract:
+
 ```bash
 pnpm test -- hello-world
 ```
@@ -69,11 +73,13 @@ pnpm test -- hello-world
 ### Adding New Contracts
 
 Create a new contract:
+
 ```bash
 pnpm run add-contract my-new-contract
 ```
 
 This will:
+
 - Create a new contract directory under `contracts/`
 - Generate a basic contract template
 - Create a corresponding test file
@@ -89,12 +95,14 @@ This will:
 ### Build Output
 
 Each contract generates two files in its `dist/` directory:
+
 - `{contract-name}.js` - Bundled JavaScript code
 - `{contract-name}.bc` - Compiled bytecode for CKB execution
 
 ### Testing
 
 Tests use the `ckb-testtool` framework to simulate CKB blockchain execution. Each test:
+
 1. Sets up a mock CKB environment
 2. Deploys the contract bytecode
 3. Executes transactions
@@ -112,10 +120,12 @@ Tests use the `ckb-testtool` framework to simulate CKB blockchain execution. Eac
 ## Dependencies
 
 ### Core Dependencies
+
 - `@ckb-js-std/bindings` - CKB JavaScript VM bindings
 - `@ckb-js-std/core` - Core CKB JavaScript utilities
 
 ### Development Dependencies
+
 - `ckb-testtool` - Testing framework for CKB contracts
 - `esbuild` - Fast JavaScript bundler
 - `jest` - JavaScript testing framework

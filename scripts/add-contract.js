@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
-import readline from 'readline';
+import fs from "fs";
+import path from "path";
+import readline from "readline";
 
 function askQuestion(question) {
   const rl = readline.createInterface({
@@ -29,29 +29,31 @@ async function addContract() {
 
   // If contract name not provided, ask for it
   if (!contractName) {
-    contractName = await askQuestion('Enter contract name: ');
+    contractName = await askQuestion("Enter contract name: ");
   }
 
   // Validate contract name
   if (!validateContractName(contractName)) {
-    console.error('❌ Invalid contract name. Use only alphanumeric characters, hyphens, and underscores.');
+    console.error(
+      "❌ Invalid contract name. Use only alphanumeric characters, hyphens, and underscores.",
+    );
     process.exit(1);
   }
 
   // Check if contract already exists
-  const contractDir = path.join('contracts', contractName);
+  const contractDir = path.join("contracts", contractName);
   if (fs.existsSync(contractDir)) {
     console.error(`❌ Contract '${contractName}' already exists!`);
     process.exit(1);
   }
 
   // Detect project language from existing files
-  let language = 'typescript'; // default
-  if (fs.existsSync('tsconfig.json')) {
-    language = 'typescript';
+  let language = "typescript"; // default
+  if (fs.existsSync("tsconfig.json")) {
+    language = "typescript";
   } else {
     // Check if any existing contracts use JavaScript
-    const contractsDir = 'contracts';
+    const contractsDir = "contracts";
     if (fs.existsSync(contractsDir)) {
       const existingContracts = fs
         .readdirSync(contractsDir, { withFileTypes: true })
@@ -59,9 +61,9 @@ async function addContract() {
         .map((dirent) => dirent.name);
 
       for (const existing of existingContracts) {
-        const existingSrcDir = path.join(contractsDir, existing, 'src');
-        if (fs.existsSync(path.join(existingSrcDir, 'index.js'))) {
-          language = 'javascript';
+        const existingSrcDir = path.join(contractsDir, existing, "src");
+        if (fs.existsSync(path.join(existingSrcDir, "index.js"))) {
+          language = "javascript";
           break;
         }
       }
@@ -72,19 +74,19 @@ async function addContract() {
 
   try {
     // Create contract directory structure
-    const srcDir = path.join(contractDir, 'src');
-    const distDir = path.join(contractDir, 'dist');
+    const srcDir = path.join(contractDir, "src");
+    const distDir = path.join(contractDir, "dist");
     fs.mkdirSync(srcDir, { recursive: true });
     fs.mkdirSync(distDir, { recursive: true });
 
     // Create main contract file
-    const fileExtension = language === 'typescript' ? 'ts' : 'js';
+    const fileExtension = language === "typescript" ? "ts" : "js";
     const contractFile = path.join(srcDir, `index.${fileExtension}`);
 
     const contractTemplate = `import * as bindings from '@ckb-js-std/bindings';
 import { Script, HighLevel, log } from '@ckb-js-std/core';
 
-function main()${language === 'typescript' ? ': number' : ''} {
+function main()${language === "typescript" ? ": number" : ""} {
   log.setLevel(log.LogLevel.Debug);
   let script = bindings.loadScript();
   log.debug(\`${contractName} script loaded: \${JSON.stringify(script)}\`);
@@ -100,9 +102,12 @@ bindings.exit(main());`;
     fs.writeFileSync(contractFile, contractTemplate);
 
     // Create test file
-    const testDir = 'tests';
+    const testDir = "tests";
     fs.mkdirSync(testDir, { recursive: true });
-    const testFile = path.join(testDir, `${contractName}.test.${fileExtension}`);
+    const testFile = path.join(
+      testDir,
+      `${contractName}.test.${fileExtension}`,
+    );
 
     const testTemplate = `import { hexFrom, Transaction, hashTypeToBytes } from '@ckb-ccc/core';
 import { readFileSync } from 'fs';
@@ -144,13 +149,18 @@ describe('${contractName} contract', () => {
     console.log(`✅ Contract '${contractName}' created successfully!`);
     console.log(`   📁 Contract: ${contractFile}`);
     console.log(`   🧪 Test: ${testFile}`);
-    console.log('');
+    console.log("");
     console.log(`📖 Next steps:`);
     console.log(`   1. Edit your contract: ${contractFile}`);
-    console.log(`   2. Build the contract: npm run build:contract ${contractName}`);
+    console.log(
+      `   2. Build the contract: npm run build:contract ${contractName}`,
+    );
     console.log(`   3. Run tests: npm test -- ${contractName}`);
   } catch (error) {
-    console.error(`❌ Failed to create contract '${contractName}':`, error.message);
+    console.error(
+      `❌ Failed to create contract '${contractName}':`,
+      error.message,
+    );
     process.exit(1);
   }
 }
