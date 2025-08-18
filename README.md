@@ -1,6 +1,6 @@
-# mercle-point
+# merkle-point
 
-A CKB JavaScript VM project for developing smart contracts on the CKB blockchain.
+A CKB JavaScript smart contract on the CKB blockchain.
 
 ## Overview
 
@@ -9,7 +9,7 @@ This project uses the CKB JavaScript VM (ckb-js-vm) to write smart contracts in 
 ## Project Structure
 
 ```
-mercle-point/
+merkle-point/
 ├── contracts/           # Smart contract source code
 │   └── hello-world/
 │       ├── src/

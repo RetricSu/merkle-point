@@ -1,21 +1,12 @@
-import {
-  BytesLike,
-  mol,
-  NumLike,
-  Hex,
-  hexFrom,
-  bytesFrom,
-} from "@ckb-ccc/core";
+import { BytesLike, mol, NumLike } from "@ckb-js-std/core";
+import * as bindings from "@ckb-js-std/bindings";
+
+export type Hex = `0x${string}`;
 
 export const Bytes32Codec: mol.Codec<string, Hex> = mol.Codec.from({
   byteLength: 32,
-  encode: (hex: string) => {
-    if (hex.startsWith("0x")) {
-      return bytesFrom(hex.slice(2), "hex");
-    }
-    return bytesFrom(hex, "hex");
-  },
-  decode: (bytes: BytesLike) => hexFrom(bytes),
+  encode: (hex: string) => bindings.hex.decode(hex),
+  decode: (bytes: BytesLike) => bindings.hex.encode(bytes) as Hex,
 });
 
 export interface AccountUpdateLike {
@@ -41,14 +32,14 @@ export interface merklePointUpdateLike {
   oldRoot: string; // 32 bytes
   newRoot: string; // 32 bytes
   accounts: AccountUpdateLike[];
-  proof: string; // dynamic length
+  proof: ArrayBuffer; // dynamic length
 }
 
 export interface merklePointUpdate {
   oldRoot: Hex; // 32 bytes
   newRoot: Hex; // 32 bytes
   accounts: AccountUpdate[];
-  proof: Hex; // dynamic length
+  proof: ArrayBuffer; // dynamic length
 }
 
 export const merklePointUpdateCodec: mol.Codec<
@@ -60,12 +51,3 @@ export const merklePointUpdateCodec: mol.Codec<
   accounts: mol.vector(AccountUpdateCodec),
   proof: mol.Bytes,
 });
-
-export function serializeUpdates(update: merklePointUpdateLike) {
-  return merklePointUpdateCodec.encode(update);
-}
-
-export function deserializeUpdates(bytes: ArrayBuffer) {
-  const update = merklePointUpdateCodec.decode(bytes);
-  return update;
-}

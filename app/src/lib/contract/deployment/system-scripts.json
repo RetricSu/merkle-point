@@ -274,6 +274,25 @@
           }
         ]
       }
+    },
+    "nostr_lock": {
+      "name": "nostr-lock",
+      "file": "",
+      "script": {
+        "codeHash": "0x97bb42c154a4fda179e0cd891c94efd0ed5eb7fa5371135122ed58deb39d94b0",
+        "hashType": "data1",
+        "cellDeps": [
+          {
+            "cellDep": {
+              "outPoint": {
+                "txHash": "0x19ffb126329a2a3ce7b81f1ac3fbc8a5d1c42ddb94770572c5981639024b9eef",
+                "index": 0
+              },
+              "depType": "code"
+            }
+          }
+        ]
+      }
     }
   },
   "testnet": {

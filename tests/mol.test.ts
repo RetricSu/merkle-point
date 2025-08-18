@@ -3,7 +3,7 @@ import { serializeUpdates, deserializeUpdates, Bytes32Codec } from "./core/mol";
 
 const hex32 = (byte: string) => "0x" + byte.repeat(32);
 
-describe("mol codecs for MerclePointUpdate", () => {
+describe("mol codecs for merklePointUpdate", () => {
   test("encode/decode Bytes32Codec", () => {
     const encoded = Bytes32Codec.encode(
       "0x0000000000000000000000000000000000000000000000000000000000000000",

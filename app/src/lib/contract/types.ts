@@ -5,7 +5,7 @@ import {
   Hex,
   hexFrom,
   bytesFrom,
-} from "@ckb-ccc/core";
+} from "@ckb-ccc/connector-react";
 
 export const Bytes32Codec: mol.Codec<string, Hex> = mol.Codec.from({
   byteLength: 32,
@@ -61,11 +61,11 @@ export const merklePointUpdateCodec: mol.Codec<
   proof: mol.Bytes,
 });
 
-export function serializeUpdates(update: merklePointUpdateLike) {
+export function serializeUpdates(update: merklePointUpdateLike): Uint8Array {
   return merklePointUpdateCodec.encode(update);
 }
 
-export function deserializeUpdates(bytes: ArrayBuffer) {
+export function deserializeUpdates(bytes: ArrayBuffer): merklePointUpdate {
   const update = merklePointUpdateCodec.decode(bytes);
   return update;
 }
