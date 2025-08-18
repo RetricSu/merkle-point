@@ -18,14 +18,14 @@ To deploy your contracts to the CKB blockchain, use the `offckb deploy` command:
 pnpm run build
 
 # Deploy to devnet (default)
-offckb deploy --network devnet --target <contract-binary-path> --output /Users/retric/Desktop/mercle-point/deployment
+offckb deploy --network devnet --target <contract-binary-path> --output /Users/retric/Desktop/merkle-point/deployment
 ```
 
 ### Deploy to Testnet
 
 ```bash
 # Deploy to testnet
-offckb deploy --network testnet --target <contract-binary-path> --output /Users/retric/Desktop/mercle-point/deployment
+offckb deploy --network testnet --target <contract-binary-path> --output /Users/retric/Desktop/merkle-point/deployment
 ```
 
 ### Deploy to Mainnet

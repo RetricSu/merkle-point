@@ -1,0 +1,12 @@
+{
+  "cell_recipes": [
+    {
+      "name": "merkle-point.bc",
+      "tx_hash": "0x682cb642fcbc505770b6952e1a638ce0eb8a6767220130412c62db134f2de05e",
+      "index": 0,
+      "occupied_capacity": 2905300000000,
+      "data_hash": "0xc6cae1c0c305eaec7172370182fc48981b501551496fa4be52da5f4718cf731d"
+    }
+  ],
+  "dep_group_recipes": []
+}
