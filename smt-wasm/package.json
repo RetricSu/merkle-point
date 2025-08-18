@@ -1,0 +1,11 @@
+{
+  "name": "smt-wasm",
+  "version": "0.1.0",
+  "files": [
+    "smt_wasm_bg.wasm",
+    "smt_wasm.js",
+    "smt_wasm.d.ts"
+  ],
+  "main": "smt_wasm.js",
+  "types": "smt_wasm.d.ts"
+}
