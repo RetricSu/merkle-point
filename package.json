@@ -16,7 +16,7 @@
     "@ckb-js-std/bindings": "~0.1.0",
     "@ckb-js-std/core": "~0.1.1",
     "dotenv": "^17.2.1",
-    "smt-wasm": "link:/Users/retric/Desktop/smt-wasm/pkg-nodejs"
+    "smt-wasm": "link:./smt-wasm"
   },
   "devDependencies": {
     "@ckb-ccc/core": "~1.5.3",
