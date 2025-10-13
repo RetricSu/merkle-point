@@ -1,30 +1,73 @@
-# merkle-point
+# Merkle-Point
 
-A CKB JavaScript smart contract on the CKB blockchain.
+A smart contract demo built with [ckb-js-vm](https://github.com/nervosnetwork/ckb-js-vm) in TypeScript that demonstrates how to use a Sparse Merkle Tree (SMT) to verify proofs on-chain.
 
-## Overview
+## What is SMT?
 
-This project uses the CKB JavaScript VM (ckb-js-vm) to write smart contracts in typescript. The contracts are compiled to bytecode and can be deployed to the CKB blockchain.
+A **Sparse Merkle Tree (SMT)** is a cryptographic data structure that makes it efficient to prove both inclusion (that something exists) and non-inclusion (that something does not exist) in a dataset.
+
+- Each piece of data maps to a unique position in the tree, determined by its hash.
+- If that position is empty, you can be certain the data is not in the entire tree.
+- Although the tree is conceptually huge, almost all leaves are empty, so it remains efficient to store and compute.
+
+### Why it Matters
+
+- Efficient proofs: SMTs generate compact proofs for both inclusion (a key exists) and non-inclusion (a key does not exist) in a dataset.
+- Scalability for sparse data: Ideal for large key spaces where only a fraction of entries are populated, since empty branches are represented implicitly, saving storage and computation.
+- Security and integrity: Like all Merkle trees, SMTs provide cryptographic guarantees, ensuring any attempt to tamper with the data can be detected.
+
+## Use Cases
+
+SMTs are a building block you can apply to many scenarios:
+
+- Allowlists & Airdrops:  prove that an address is eligible (or not) without uploading the full list on-chain.
+- Membership & Access Control: prove a user belongs (or doesn’t belong) to a group (DAO, gated event, subscription program) using small, verifiable proofs.
+- Loyalty & Point Systems: track balances off-chain and provide compact proofs on-chain when redemption or settlement is needed.
+
 
 ## Project Structure
 
 ```
 merkle-point/
-├── contracts/           # Smart contract source code
-│   └── hello-world/
-│       ├── src/
-│       │   └── index.typescript # Contract implementation
-│       └── dist/        # Compiled output (generated)
-├── tests/              # Contract tests
-│   └── hello-world.test.typescript
-├── scripts/            # Build and utility scripts
-│   ├── build-all.js
-│   ├── build-contract.js
-│   └── add-contract.js
-├── package.json
-├── tsconfig.json       # TypeScript configuration
-├── tsconfig.base.json  # Base TypeScript settings
-├── jest.config.cjs     # Jest testing configuration
+├── app/                                   # Next.js frontend
+│   ├── public/                            # Static assets
+│   └── src/
+│       ├── app/                           # Next.js app router (layout, page, styles)
+│       ├── components/                    # UI + dapp widgets
+│       ├── lib/
+│       │   ├── contract/                  # Frontend contract client + bindings
+│       │   │   ├── client.ts              # RPC calls & on-chain interactions
+│       │   │   ├── config.ts              # Addresses, network config
+│       │   │   ├── deployment/            # Exported system/deploy metadata (JSON)
+│       │   │   ├── merkle-point.ts        # Contract-specific frontend helpers
+│       │   │   ├── smt-wrapper.ts         # Thin wrapper around SMT WASM
+│       │   │   └── types.ts               # Shared types
+│       │   ├── env.ts                     # Frontend env loader
+│       │   └── utils.ts                   # Misc utilities
+│   └── tsconfig.json
+│
+├── contracts/
+│   └── merkle-point/
+│       └── src/                           # JS-VM contract sources
+│           ├── index.ts                   # Contract entry (verify proofs)
+│           ├── type.ts                    # Molecule / type defs
+│           ├── util.ts                    # Helpers
+│           └── validate.ts                # Validation logic
+│
+├── deployment/                            # Built artifacts & migrations by network
+├── smt-wasm/                              # WASM package for SMT operations
+│   ├── smt_wasm_bg.wasm                   # Compiled WASM
+│   └── smt_wasm.js / d.ts                 # JS glue + type defs
+│
+├── tests/                                 # Contract & integration tests
+│   ├── merkle-point.mock.test.ts          # Mock env tests
+│   ├── merkle-point.devnet.test.ts        # Devnet integration tests
+│   ├── smt.test.ts / mol.test.ts          # Unit tests (SMT & Molecule)
+│   └── core/                              # Test helpers (client, mol, utils)
+├── scripts/                               # Repo build utilities
+├── package.json                           # Workspace config & deps
+├── tsconfig.base.json / tsconfig.json     # TS settings (root + project)
+├── jest.config.cjs                        # Jest config
 └── README.md
 ```
 
